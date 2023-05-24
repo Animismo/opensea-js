@@ -1,5 +1,4 @@
-import { Network } from "../types";
-import { accountFromJSON, assetBundleFromJSON } from "../utils";
+import { CROSS_CHAIN_SEAPORT_V1_5_ADDRESS } from "@opensea/seaport-js/lib/constants";
 import {
   OrderProtocol,
   OrdersQueryOptions,
@@ -8,12 +7,17 @@ import {
   SerializedOrderV2,
   ProtocolData,
 } from "./types";
+import { Network } from "../types";
+import { accountFromJSON, assetBundleFromJSON } from "../utils";
 
 const NETWORK_TO_CHAIN = {
   [Network.Main]: "ethereum",
   [Network.Rinkeby]: "rinkeby",
   [Network.Goerli]: "goerli",
 };
+
+export const DEFAULT_SEAPORT_CONTRACT_ADDRESS =
+  CROSS_CHAIN_SEAPORT_V1_5_ADDRESS;
 
 export const getOrdersAPIPath = (
   network: Network,
@@ -46,6 +50,7 @@ export const getPostCollectionOfferPayload = (
       collection: { slug: collectionSlug },
     },
     protocol_data,
+    protocol_address: DEFAULT_SEAPORT_CONTRACT_ADDRESS,
   };
 };
 
@@ -62,6 +67,7 @@ export const getBuildCollectionOfferPayload = (
         slug: collectionSlug,
       },
     },
+    protocol_address: DEFAULT_SEAPORT_CONTRACT_ADDRESS,
   };
 };
 
